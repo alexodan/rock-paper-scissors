@@ -1,0 +1,41 @@
+/* #modal-container {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+}*/
+
+#modal {
+  background-color: white;
+  border-radius: 5px;
+  padding: 25px;
+  /* padding-top: 30px; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #213a6e;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header img {
+  width: 15px;
+  height: 15px;
+}
+
+.header img {
+  /* position: absolute;
+  top: 10px;
+  right: 10px; */
+}
+
+#modal img {
+  /* margin-top: 20px; */
+}

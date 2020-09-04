@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Modal from "./components/Modal";
+import Board from "./components/Board";
+import VersusBoard from "./components/Versus";
+import Header from "./components/Header";
 
-function App() {
+export default function App() {
+  const [showIntro, setShowingIntro] = useState(true); // TODO: useLocalStorage
+  const [score, setScore] = useState(0); // TODO: useLocalStorage
+  const [selection, setSelection] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header score={score} />
+
+      {showIntro && <Modal setShowingIntro={setShowingIntro} />}
+      {selection === null && <Board setSelection={setSelection} />}
+      {selection && <VersusBoard selection={selection} />}
+
+      <button className="rules-btn" onClick={() => setShowingIntro(true)}>
+        RULES
+      </button>
     </div>
   );
 }
-
-export default App;
