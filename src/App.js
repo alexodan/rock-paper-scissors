@@ -6,7 +6,7 @@ import VersusBoard from "./components/Versus";
 import Header from "./components/Header";
 
 export default function App() {
-  const [showIntro, setShowingIntro] = useState(true); // TODO: useLocalStorage
+  const [showIntro, setShowingIntro] = useState(false); // TODO: useLocalStorage
   const [score, setScore] = useState(0); // TODO: useLocalStorage
   const [selection, setSelection] = useState(null);
 
