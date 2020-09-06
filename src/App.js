@@ -8,16 +8,16 @@ import Header from "./components/Header";
 export default function App() {
   const [showIntro, setShowingIntro] = useState(false); // TODO: useLocalStorage
   const [score, setScore] = useState(0); // TODO: useLocalStorage
-  const [userOption, setUserOption] = useState(null);
+  const [userOption, setUserOption] = useState("");
 
   return (
     <div className="App">
       <Header score={score} />
-
       {showIntro && <Modal setShowingIntro={setShowingIntro} />}
-      {userOption === null && <Board setUserOption={setUserOption} />}
-      {userOption && <VersusBoard userOption={userOption} />}
-
+      {!userOption && <Board setUserOption={setUserOption} />}
+      {userOption && (
+        <VersusBoard userOption={userOption} setUserOption={setUserOption} />
+      )}
       <button className="rules-btn" onClick={() => setShowingIntro(true)}>
         RULES
       </button>

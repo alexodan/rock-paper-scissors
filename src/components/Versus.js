@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Option from "./Option";
 import "./Versus.css";
 
-const VersusBoard = ({ userOption }) => {
-  const getComputerOption = () => {
-    const types = ["rock", "scissors", "paper"];
-    const index = Math.floor(Math.random() * 3);
+const VersusBoard = ({ userOption, setUserOption }) => {
+  const [computerOption, setComputerOption] = useState("");
+  const [result, setResult] = useState("");
 
-    return types[index];
-  };
+  useEffect(() => {
+    console.log("once");
+    const id = setTimeout(() => {
+      const types = ["rock", "scissors", "paper"];
+      const index = Math.floor(Math.random() * 3);
+      setComputerOption(types[index]);
+    }, 2000);
+    return () => clearTimeout(id);
+  }, []);
 
-  const computerOption = getComputerOption();
+  useEffect(() => {
+    const calculateResult = () => {
+      console.log(`user: ${userOption}, pc: ${computerOption}`);
+      if (!computerOption || !userOption) return "";
+      if (computerOption === userOption) return "It's a Tie";
+      if (userOption === "rock") {
+        return computerOption === "paper" ? "You Lose" : "You Win";
+      } else if (userOption === "scissors") {
+        return computerOption === "rock" ? "You Lose" : "You Win";
+      }
+      return computerOption === "scissors" ? "You Lose" : "You Win";
+    };
 
-  const result = (computerOption) => {
-    if (computerOption === userOption) return "Tie";
-    if (userOption === "rock") {
-      return computerOption === "paper" ? "Lose" : "Win";
-    } else if (userOption === "scissors") {
-      return computerOption === "rock" ? "Lose" : "Win";
-    }
-    return computerOption === "scissors" ? "Lose" : "Win";
+    setResult(calculateResult());
+  }, [userOption, computerOption]);
+
+  const playAgain = () => {
+    setUserOption("");
+    setComputerOption("");
   };
 
   return (
@@ -28,8 +43,9 @@ const VersusBoard = ({ userOption }) => {
         <span className="text">YOU PICKED</span>
         <Option type={userOption} />
       </div>
-      <div style={{ display: "none" }} className="result">
-        You {result(computerOption)}!
+      <div style={{ display: result ? "block" : "none" }} className="result">
+        <p>{result}!</p>
+        <button onClick={playAgain}>PLAY AGAIN</button>
       </div>
       <div className="Option-container">
         <span className="text">THE HOUSE PICKED</span>

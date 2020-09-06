@@ -1,6 +1,8 @@
 .Versus {
   display: flex;
   justify-content: space-around;
+  height: 75%;
+  position: relative;
 }
 
 .Option-container {
@@ -13,4 +15,27 @@
 .Option-container .text {
   color: white;
   font-size: 1.2rem;
+  margin-bottom: 50px;
+}
+
+.result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.result p {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.result button {
+  color: #161f40;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px 30px;
+  outline: none;
+  border: none;
 }
