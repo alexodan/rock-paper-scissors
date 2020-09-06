@@ -7,9 +7,9 @@ const color = {
   scissors: "yellow",
 };
 
-const Option = ({ type, setSelection }) => {
+const Option = ({ type, setUserOption }) => {
   const handleClick = () => {
-    setSelection(type);
+    setUserOption(type);
   };
 
   return (

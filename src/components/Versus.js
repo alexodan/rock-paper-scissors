@@ -1,28 +1,40 @@
 import React from "react";
 import Option from "./Option";
+import "./Versus.css";
 
-const VersusBoard = ({ selection }) => {
-  // calculate computer option
-  const computeComputerOption = () => {
+const VersusBoard = ({ userOption }) => {
+  const getComputerOption = () => {
     const types = ["rock", "scissors", "paper"];
     const index = Math.floor(Math.random() * 3);
 
     return types[index];
   };
-  const computerOption = computeComputerOption();
 
-  // computer if player wins or loses
-  const matchOutcome = (player, computer) => {
-    return "Win";
+  const computerOption = getComputerOption();
+
+  const result = (computerOption) => {
+    if (computerOption === userOption) return "Tie";
+    if (userOption === "rock") {
+      return computerOption === "paper" ? "Lose" : "Win";
+    } else if (userOption === "scissors") {
+      return computerOption === "rock" ? "Lose" : "Win";
+    }
+    return computerOption === "scissors" ? "Lose" : "Win";
   };
 
-  // add button to play again and reset game
-
   return (
-    <div>
-      <Option type={selection} />
-      <div>You {matchOutcome()}!</div>
-      <Option type={computerOption} />
+    <div className="Versus">
+      <div className="Option-container">
+        <span className="text">YOU PICKED</span>
+        <Option type={userOption} />
+      </div>
+      <div style={{ display: "none" }} className="result">
+        You {result(computerOption)}!
+      </div>
+      <div className="Option-container">
+        <span className="text">THE HOUSE PICKED</span>
+        <Option type={computerOption} />
+      </div>
     </div>
   );
 };
