@@ -11,10 +11,11 @@ export default function App() {
   const [userOption, setUserOption] = useState("");
 
   const updateScore = (matchResult, points) => {
+    console.log("Updating score:", matchResult, points);
     if (matchResult === "win") {
       setScore(score + points);
     } else if (matchResult === "loose") {
-      setScore(score - points > 0 ? score : score - points);
+      setScore(score - points < 0 ? score : score - points);
     }
   };
 

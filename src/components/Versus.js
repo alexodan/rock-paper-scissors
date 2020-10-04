@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Option from "./Option";
 import "./Versus.css";
 
@@ -19,42 +19,37 @@ const calculateResult = (userOption, computerOption) => {
   return computerOption === "scissors" ? "lose" : "win";
 };
 
-// ToDo: use useReducer to improve readability and compress the 'business logic' apart from the view.
 const VersusBoard = ({ userOption, setUserOption, updateScore }) => {
-  const [computerOption, setComputerOption] = useState("");
-  const [result, setResult] = useState("");
+  const computerOption = useRef("");
+  const [finalResult, setFinalResult] = useState("");
   const [showResult, setShowResult] = useState(false);
+  const [tempComputerOption, setTempComputerOption] = useState("");
 
   useEffect(() => {
-    const types = ["rock", "scissors", "paper"];
-    const resultIndex = Math.floor(Math.random() * 3);
-
     const intervalId = setInterval(() => {
       const types = ["rock", "scissors", "paper"];
       const index = Math.floor(Math.random() * 3);
-      setComputerOption(types[index]);
+      setTempComputerOption(types[index]);
+      computerOption.current = types[index];
     }, 150);
 
     const id = setTimeout(() => {
       clearInterval(intervalId);
+      const matchResult = calculateResult(userOption, computerOption.current);
+      setFinalResult(messageDisplay[matchResult]);
       setShowResult(true);
-      setComputerOption(types[resultIndex]);
+      updateScore(matchResult, POINTS);
     }, 2000);
 
     return () => {
+      clearInterval(intervalId);
       clearTimeout(id);
     };
-  }, []);
-
-  useEffect(() => {
-    const matchResult = calculateResult(userOption, computerOption);
-    // updateScore(matchResult, POINTS);
-    setResult(messageDisplay[matchResult]);
-  }, [userOption, computerOption, updateScore]);
+  }, [userOption]);
 
   const playAgain = () => {
     setUserOption("");
-    setComputerOption("");
+    computerOption.current = "";
   };
 
   return (
@@ -67,12 +62,16 @@ const VersusBoard = ({ userOption, setUserOption, updateScore }) => {
         style={{ display: showResult ? "block" : "none" }}
         className="result"
       >
-        <p>{result}!</p>
+        <p>{finalResult}!</p>
         <button onClick={playAgain}>PLAY AGAIN</button>
       </div>
       <div className="Option-container">
         <span className="text">THE HOUSE PICKED</span>
-        <Option type={computerOption} />
+        {showResult ? (
+          <Option type={computerOption.current} />
+        ) : (
+          <Option type={tempComputerOption} />
+        )}
       </div>
     </div>
   );
