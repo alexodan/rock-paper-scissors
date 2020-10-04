@@ -10,13 +10,25 @@ export default function App() {
   const [score, setScore] = useState(0); // TODO: useLocalStorage
   const [userOption, setUserOption] = useState("");
 
+  const updateScore = (matchResult, points) => {
+    if (matchResult === "win") {
+      setScore(score + points);
+    } else if (matchResult === "loose") {
+      setScore(score - points > 0 ? score : score - points);
+    }
+  };
+
   return (
     <div className="App">
       <Header score={score} />
       {showIntro && <Modal setShowingIntro={setShowingIntro} />}
       {!userOption && <Board setUserOption={setUserOption} />}
       {userOption && (
-        <VersusBoard userOption={userOption} setUserOption={setUserOption} />
+        <VersusBoard
+          userOption={userOption}
+          setUserOption={setUserOption}
+          updateScore={updateScore}
+        />
       )}
       <button className="rules-btn" onClick={() => setShowingIntro(true)}>
         RULES

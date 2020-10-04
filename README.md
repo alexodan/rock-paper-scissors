@@ -4,4 +4,6 @@ Challenge taken from `frontendmentor.io`, resources can be found in [frontendmen
 
 I've developed this solution using [React.js](https://reactjs.org/)
 
+![Capture](https://github.com/alexodan/rock-paper-scissors/blob/master/public/images/capture1.png)
+
 To run it, just do an `npm install` on the root, and then `npm start`.

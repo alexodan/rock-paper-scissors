@@ -2,17 +2,18 @@
   font-family: sans-serif;
   text-align: center;
   height: 100vh;
-  /* background-color: #1b2a4b; */
   background-color: #161f40;
   position: relative;
   font-family: "Lato", sans-serif;
+  padding-top: 30px;
+  box-sizing: border-box;
 }
 
 .rules-btn {
   background-color: #161f40;
   border: 1px solid white;
   border-radius: 5px;
-  bottom: 20px;
+  bottom: 40px;
   color: white;
   padding: 10px 30px;
   position: absolute;
